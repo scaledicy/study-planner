@@ -1,14 +1,8 @@
 import React from 'react'
-import { Button } from '@material-ui/core'
+import Dashboard from './containers/Dashboard/Dashboard'
 
 function App() {
-  return (
-    <div className='App'>
-      <Button variant='contained' color='primary'>
-        Click
-      </Button>
-    </div>
-  )
+  return <Dashboard />
 }
 
 export default App
