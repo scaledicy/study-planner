@@ -6,14 +6,18 @@ import reportWebVitals from './reportWebVitals'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { defaultTheme } from 'themes/default.theme'
 import { CssBaseline } from '@material-ui/core'
+import { Provider } from 'react-redux'
+import appStore from 'store/store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline>
-        <App />
-      </CssBaseline>
-    </ThemeProvider>
+    <Provider store={appStore}>
+      <ThemeProvider theme={defaultTheme}>
+        <CssBaseline>
+          <App />
+        </CssBaseline>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )
