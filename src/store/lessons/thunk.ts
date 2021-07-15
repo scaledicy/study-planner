@@ -5,6 +5,6 @@ import { AppStore } from 'store/store'
 
 export const fetchLessons =
   (): ThunkAction<Promise<void>, AppStore, unknown, any> => async dispatch => {
-    let response = await getLessons()
+    const response = await getLessons()
     dispatch(setLessons(response.data))
   }
