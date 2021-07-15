@@ -9,21 +9,19 @@ const LessonsList: React.FC = () => {
   const { data } = useLessonsList()
 
   return (
-    <div>
-      <List>
-        {data.lessons.map((l, ind, arr) => (
-          <>
-            <ListItem key={l.id}>
-              <ListItemText
-                primary={l.school_subject.name}
-                secondary='Jan 9, 2014'
-              />
-            </ListItem>
-            {ind !== arr.length - 1 && <Divider />}
-          </>
-        ))}
-      </List>
-    </div>
+    <List>
+      {data.lessons.map((l, ind, arr) => (
+        <div key={l.id}>
+          <ListItem>
+            <ListItemText
+              primary={l.school_subject.name}
+              secondary='Jan 9, 2014'
+            />
+          </ListItem>
+          {ind !== arr.length - 1 && <Divider />}
+        </div>
+      ))}
+    </List>
   )
 }
 
