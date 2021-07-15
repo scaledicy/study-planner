@@ -9,23 +9,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from 'store/store'
 import { fetchSchoolSubjects } from 'store/schoolSubjects/thunk'
-
-//todo move the variable outside the file
-const selectDays = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-] as const
-
-//todo move the interface outside the file
-interface LessonRequest {
-  day: typeof selectDays[number]
-  school_subject: string
-  start: string
-  end: string
-}
+import { LessonRequest } from 'services/lessons/type'
+import { SELECT_DAYS } from 'shared/const'
+import { createLessonThunk } from 'store/lessons/thunk'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,14 +36,14 @@ const LessonForm: React.FC = () => {
   )
 
   //==== Local state ====
-  const [day, setDay] = React.useState<typeof selectDays[number] | ''>('')
+  const [day, setDay] = React.useState<typeof SELECT_DAYS[number] | ''>('')
   const [schoolSubject, setSchoolSubject] = React.useState('')
   const [startTime, setStartTime] = React.useState('')
   const [endTime, setEndTime] = React.useState('')
 
   //==== Handle changes/submit ====
   const handleChangeDay = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setDay(event.target.value as typeof selectDays[number] | '')
+    setDay(event.target.value as typeof SELECT_DAYS[number] | '')
   }
   const handleChangeSubject = (
     event: React.ChangeEvent<{ value: unknown }>
@@ -82,8 +68,7 @@ const LessonForm: React.FC = () => {
         start: startTime,
         end: endTime,
       }
-
-      console.log(objSubmit)
+      dispatch(createLessonThunk(objSubmit))
     }
   }
 
@@ -97,7 +82,7 @@ const LessonForm: React.FC = () => {
           onChange={handleChangeDay}
           label='Choose day'
         >
-          {selectDays.map(d => (
+          {SELECT_DAYS.map(d => (
             <MenuItem key={d} value={d}>
               {d}
             </MenuItem>
