@@ -31,8 +31,8 @@ const BaseLayout: React.FC = ({ children }) => {
     <div className={classes.root}>
       <AppBar position='sticky' className={classes.appBar}>
         <Toolbar>
-          <Typography variant='h6' noWrap>
-            Clipped drawer
+          <Typography variant='h4' noWrap>
+            Study planner
           </Typography>
         </Toolbar>
       </AppBar>
