@@ -3,6 +3,7 @@ import { LessonsState } from './type'
 
 export const SET_LESSONS = 'SET_LESSONS'
 export const TOGGLE_LESSON_FORM = 'TOGGLE_LESSON_FORM'
+export const SET_FILTER_DAY = 'SET_FILTER_DAY'
 
 export const lessonsReducer = (
   state = initialState,
@@ -19,6 +20,12 @@ export const lessonsReducer = (
       return {
         ...state,
         isLessonForm: action.isLessonForm,
+      }
+    }
+    case SET_FILTER_DAY: {
+      return {
+        ...state,
+        filterDay: action.filterDay,
       }
     }
     default:

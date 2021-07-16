@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStore } from 'store/store'
 import { useCallback, useEffect } from 'react'
 import { fetchLessons } from 'store/lessons/thunk'
 import { toggleLessonForm } from 'store/lessons/action'
+import {
+  getIsLessonFormSelector,
+  getLessonsByDayFilterSelector,
+} from 'store/lessons/selector'
 
 const useLessonsList = () => {
   const dispatch = useDispatch()
 
   //==== Selectors ====
-  const dataState = useSelector((state: AppStore) => ({
-    lessons: state.lessons.lessons,
-    isLessonForm: state.lessons.isLessonForm,
-  }))
+  const isLessonForm = useSelector(getIsLessonFormSelector)
+  const lessons = useSelector(getLessonsByDayFilterSelector)
 
   //==== Dispatch handlers ====
   const getLessonsHandler = useCallback(
@@ -19,8 +20,8 @@ const useLessonsList = () => {
     [dispatch]
   )
   const toggleLessonFormHandler = useCallback(
-    () => dispatch(toggleLessonForm(!dataState.isLessonForm)),
-    [dispatch, dataState.isLessonForm]
+    () => dispatch(toggleLessonForm(!isLessonForm)),
+    [dispatch, isLessonForm]
   )
 
   //==== Effects ====
@@ -30,8 +31,8 @@ const useLessonsList = () => {
 
   return {
     data: {
-      lessons: dataState.lessons,
-      isLessonForm: dataState.isLessonForm,
+      lessons,
+      isLessonForm: isLessonForm,
     },
     handlers: {
       toggleLessonFormHandler,

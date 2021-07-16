@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cardContainer: {
       position: 'relative',
-      marginTop: theme.spacing(5),
     },
     addNewLesson: {
       position: 'absolute',
