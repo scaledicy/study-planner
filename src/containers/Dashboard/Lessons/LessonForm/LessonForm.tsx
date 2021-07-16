@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-import TextField from '@material-ui/core/TextField'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -10,8 +9,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from 'store/store'
 import { fetchSchoolSubjects } from 'store/schoolSubjects/thunk'
 import { LessonRequest } from 'services/lessons/type'
-import { SELECT_DAYS } from 'shared/const'
+import { LESSON_TIME, SELECT_DAYS } from 'shared/const'
 import { createLessonThunk } from 'store/lessons/thunk'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
+
+//todo move logic out of a component
 
 const LessonForm: React.FC = () => {
   const classes = useStyles()
@@ -38,8 +41,8 @@ const LessonForm: React.FC = () => {
   //==== Local state ====
   const [day, setDay] = React.useState<typeof SELECT_DAYS[number] | ''>('')
   const [schoolSubject, setSchoolSubject] = React.useState('')
-  const [startTime, setStartTime] = React.useState('')
-  const [endTime, setEndTime] = React.useState('')
+  const [numberOfLesson, setNumberOfLesson] =
+    React.useState<number | null>(null)
 
   //==== Handle changes/submit ====
   const handleChangeDay = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -50,89 +53,92 @@ const LessonForm: React.FC = () => {
   ) => {
     setSchoolSubject(event.target.value as string)
   }
-  const handleChangeStartTime = (
-    event: React.ChangeEvent<HTMLInputElement>
+  const handleChangeNumberOfLesson = (
+    event: React.ChangeEvent<{ value: unknown }>
   ) => {
-    setStartTime(event.target.value as string)
-  }
-  const handleChangeEndTime = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEndTime(event.target.value as string)
+    setNumberOfLesson(parseInt(event.target.value as string))
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (day !== '') {
+    if (day !== '' && numberOfLesson !== null) {
       const objSubmit: LessonRequest = {
         day,
         school_subject: schoolSubject,
-        start: startTime,
-        end: endTime,
+        ...LESSON_TIME[numberOfLesson],
       }
       dispatch(createLessonThunk(objSubmit))
+
+      //==== Clear form after submit ====
+      setDay('')
+      setSchoolSubject('')
+      setNumberOfLesson(null)
     }
   }
 
   return (
-    <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-      <FormControl variant='outlined' size='small' fullWidth margin='dense'>
-        <InputLabel id='day-label'>Choose day</InputLabel>
-        <Select
-          labelId='day-label'
-          value={day}
-          onChange={handleChangeDay}
-          label='Choose day'
-        >
-          {SELECT_DAYS.map(d => (
-            <MenuItem key={d} value={d}>
-              {d}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl variant='outlined' size='small' fullWidth margin='dense'>
-        <InputLabel id='day-label'>Choose school subject</InputLabel>
-        <Select
-          labelId='day-label'
-          value={schoolSubject}
-          onChange={handleChangeSubject}
-          onOpen={getSchoolSubjectsHandler}
-          label='Choose school subject'
-        >
-          {schoolSubjectsData.map(s => (
-            <MenuItem key={s.id} value={s.id}>
-              {s.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <TextField
-        label='Start time'
-        variant='outlined'
-        size='small'
-        margin='dense'
-        fullWidth
-        value={startTime}
-        onChange={handleChangeStartTime}
-      />
-      <TextField
-        label='End time'
-        variant='outlined'
-        size='small'
-        margin='dense'
-        fullWidth
-        value={endTime}
-        onChange={handleChangeEndTime}
-      />
-      <Button
-        fullWidth
-        variant='contained'
-        color='primary'
-        className={classes.createLesson}
-        type='submit'
-      >
-        Create lesson
-      </Button>
-    </form>
+    <Card>
+      <CardContent>
+        <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+          <FormControl variant='outlined' size='small' fullWidth margin='dense'>
+            <InputLabel id='day-label'>Choose day</InputLabel>
+            <Select
+              labelId='day-label'
+              value={day}
+              onChange={handleChangeDay}
+              label='Choose day'
+            >
+              {SELECT_DAYS.map(d => (
+                <MenuItem key={d} value={d}>
+                  {d}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant='outlined' size='small' fullWidth margin='dense'>
+            <InputLabel id='choose-school-subject'>
+              Choose school subject
+            </InputLabel>
+            <Select
+              labelId='choose-school-subject'
+              value={schoolSubject}
+              onChange={handleChangeSubject}
+              onOpen={getSchoolSubjectsHandler}
+              label='Choose school subject'
+            >
+              {schoolSubjectsData.map(s => (
+                <MenuItem key={s.id} value={s.id}>
+                  {s.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant='outlined' size='small' fullWidth margin='dense'>
+            <InputLabel id='count-of-lesson'>Count of lesson</InputLabel>
+            <Select
+              labelId='count-of-lesson'
+              value={numberOfLesson ?? ''}
+              onChange={handleChangeNumberOfLesson}
+              label='Count of lesson'
+            >
+              {LESSON_TIME.map((el, i) => (
+                <MenuItem key={el.start} value={i}>
+                  Lesson {++i}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button
+            variant='contained'
+            color='primary'
+            className={classes.createLesson}
+            type='submit'
+          >
+            Create lesson
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   )
 }
 
