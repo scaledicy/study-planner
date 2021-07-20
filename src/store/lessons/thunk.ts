@@ -1,4 +1,8 @@
-import { createLesson, getLessons } from 'services/lessons/lessons'
+import {
+  createLesson,
+  getLessons,
+  updateLesson,
+} from 'services/lessons/lessons'
 import { setLessons } from './action'
 import { ThunkAction } from 'redux-thunk'
 import { AppStore } from 'store/store'
@@ -14,6 +18,18 @@ export const createLessonThunk =
   (lesson: LessonRequest): ThunkAction<Promise<void>, AppStore, unknown, any> =>
   async dispatch => {
     const response = await createLesson(lesson)
+    if (response.status === 200) {
+      await dispatch(fetchLessons())
+    }
+  }
+
+export const updateLessonThunk =
+  (
+    id: number,
+    lesson: LessonRequest
+  ): ThunkAction<Promise<void>, AppStore, unknown, any> =>
+  async dispatch => {
+    const response = await updateLesson(id, lesson)
     if (response.status === 200) {
       await dispatch(fetchLessons())
     }

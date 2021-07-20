@@ -28,11 +28,9 @@ const Lessons: React.FC = () => {
     getLessonsHandler(value)
   }
 
-  console.log(filterDay)
-
   return (
     <Grid container justifyContent='space-between'>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         <LessonsList />
       </Grid>
       <Grid item xs={2}>

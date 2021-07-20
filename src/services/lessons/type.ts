@@ -3,7 +3,7 @@ import { SELECT_DAYS } from 'shared/const'
 
 export interface Lesson {
   id: number
-  day: string
+  day: typeof SELECT_DAYS[number]
   school_subject: SchoolSubject
   start: string
   end: string

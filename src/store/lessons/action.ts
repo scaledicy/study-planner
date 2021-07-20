@@ -1,6 +1,6 @@
 import { SET_FILTER_DAY, SET_LESSONS, TOGGLE_LESSON_FORM } from './reducer'
 import { Lesson } from 'services/lessons/type'
-import { SELECT_DAYS } from '../../shared/const'
+import { SELECT_DAYS } from 'shared/const'
 
 type SetLessonsActionType = {
   type: typeof SET_LESSONS
