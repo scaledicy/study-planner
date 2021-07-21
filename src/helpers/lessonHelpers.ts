@@ -1,5 +1,6 @@
 import { Lesson, LessonRequest } from 'services/lessons/type'
 import { LessonFormType } from 'store/lessons/type'
+import { LESSON_TIME } from 'shared/const'
 
 export function lessonToRequest(lesson: Lesson): LessonRequest {
   return {
@@ -11,9 +12,10 @@ export function lessonToRequest(lesson: Lesson): LessonRequest {
 }
 
 export function lessonToForm(lesson: Lesson): LessonFormType {
+  const numberOfLesson = LESSON_TIME.findIndex(el => el.start === lesson.start)
   return {
     day: lesson.day,
     schoolSubject: lesson.school_subject.id.toString(),
-    numberOfLesson: 1,
+    numberOfLesson,
   }
 }
