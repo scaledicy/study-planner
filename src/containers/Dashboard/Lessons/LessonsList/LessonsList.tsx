@@ -65,7 +65,13 @@ const LessonsList: React.FC = () => {
                     >
                       <EditIcon />
                     </IconButton>
-                    <IconButton edge='end' aria-label='delete'>
+                    <IconButton
+                      edge='end'
+                      aria-label='delete'
+                      onClick={() => {
+                        handlers.deleteLessonFormHandler(l.id)
+                      }}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>

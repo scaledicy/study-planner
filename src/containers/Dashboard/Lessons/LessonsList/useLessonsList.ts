@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect } from 'react'
-import { fetchLessons } from 'store/lessons/thunk'
+import { deleteLessonThunk, fetchLessons } from 'store/lessons/thunk'
 import {
   getLessonsByDayFilterSelector,
   isCreateFormSelector,
@@ -31,6 +31,10 @@ const useLessonsList = () => {
     () => dispatch(createLessonForm(!isCreateForm)),
     [dispatch, isCreateForm]
   )
+  const deleteLessonFormHandler = useCallback(
+    lessonId => dispatch(deleteLessonThunk(lessonId)),
+    [dispatch]
+  )
 
   const editLessonHandler = useCallback(
     (id: number, lesson: Lesson, isEdit: boolean) => {
@@ -56,6 +60,7 @@ const useLessonsList = () => {
     handlers: {
       createLessonFormHandler,
       editLessonHandler,
+      deleteLessonFormHandler,
     },
   }
 }

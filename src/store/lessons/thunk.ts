@@ -1,5 +1,6 @@
 import {
   createLesson,
+  deleteLesson,
   getLessons,
   updateLesson,
 } from 'services/lessons/lessons'
@@ -30,6 +31,15 @@ export const updateLessonThunk =
   ): ThunkAction<Promise<void>, AppStore, unknown, any> =>
   async dispatch => {
     const response = await updateLesson(id, lesson)
+    if (response.status === 200) {
+      await dispatch(fetchLessons())
+    }
+  }
+
+export const deleteLessonThunk =
+  (lessonId: number): ThunkAction<Promise<void>, AppStore, unknown, any> =>
+  async dispatch => {
+    const response = await deleteLesson(lessonId)
     if (response.status === 200) {
       await dispatch(fetchLessons())
     }
