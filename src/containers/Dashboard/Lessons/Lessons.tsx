@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import LessonsList from './LessonsList/LessonsList'
 import LessonCreate from './LessonCreate/LessonCreate'
 import Grid from '@material-ui/core/Grid/Grid'
@@ -10,6 +10,7 @@ import { SELECT_DAYS } from 'shared/const'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from 'store/store'
 import { setFilterDay } from 'store/lessons/action'
+import { fetchSchoolSubjects } from 'store/schoolSubjects/thunk'
 
 const Lessons: React.FC = () => {
   const dispatch = useDispatch()
@@ -19,6 +20,9 @@ const Lessons: React.FC = () => {
     (day: typeof SELECT_DAYS[number] | null) => dispatch(setFilterDay(day)),
     [dispatch]
   )
+  const getSchoolSubjectsHandler = useCallback(() => {
+    dispatch(fetchSchoolSubjects())
+  }, [dispatch])
 
   const handleFilterDay = (event: React.ChangeEvent<{ value: unknown }>) => {
     const value: typeof SELECT_DAYS[number] | null =
@@ -27,6 +31,10 @@ const Lessons: React.FC = () => {
         : (event.target.value as typeof SELECT_DAYS[number])
     getLessonsHandler(value)
   }
+
+  useEffect(() => {
+    getSchoolSubjectsHandler()
+  }, [getSchoolSubjectsHandler])
 
   return (
     <Grid container justifyContent='space-between'>

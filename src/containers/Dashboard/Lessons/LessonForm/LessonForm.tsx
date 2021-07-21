@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from 'store/store'
-import { fetchSchoolSubjects } from 'store/schoolSubjects/thunk'
 import { LessonRequest } from 'services/lessons/type'
 import { LESSON_TIME, SELECT_DAYS } from 'shared/const'
 import { createLessonThunk } from 'store/lessons/thunk'
@@ -39,15 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const LessonForm: React.FC = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-
-  //==== Callback handlers ====
-  const getSchoolSubjectsHandler = useCallback(() => {
-    dispatch(fetchSchoolSubjects())
-  }, [dispatch])
-
-  useEffect(() => {
-    getSchoolSubjectsHandler()
-  }, [getSchoolSubjectsHandler])
 
   //==== Get from global state ====
   const schoolSubjectsData = useSelector(
