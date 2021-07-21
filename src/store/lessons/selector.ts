@@ -10,8 +10,11 @@ export const getFilterDaySelector = (
   state: AppStore
 ): typeof SELECT_DAYS[number] | null => state.lessons.filterDay
 
-export const getIsLessonFormSelector = (state: AppStore): boolean =>
-  state.lessons.isLessonForm
+export const isCreateFormSelector = (state: AppStore): boolean =>
+  state.lessons.isCreateForm
+
+export const isEditFormSelector = (state: AppStore): boolean =>
+  state.lessons.isEditForm
 
 export const getLessonsByDayFilterSelector = createSelector(
   getAllLessonsSelector,

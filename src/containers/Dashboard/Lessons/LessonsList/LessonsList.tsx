@@ -14,7 +14,6 @@ import IconButton from '@material-ui/core/IconButton'
 import Divider from '@material-ui/core/Divider'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { Lesson } from 'services/lessons/type'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,10 +36,6 @@ const LessonsList: React.FC = () => {
   const { data, handlers } = useLessonsList()
   const classes = useStyles()
 
-  const updateLessonHandler = (id: number, lesson: Lesson) => {
-    handlers.updateLessonHandler(id, lesson)
-  }
-
   return (
     <div className={classes.cardContainer}>
       <Card>
@@ -49,42 +44,43 @@ const LessonsList: React.FC = () => {
             Lessons list
           </Typography>
           <List>
-            {data.lessons.map((l, ind, arr) => {
-              console.log(l)
-              return (
-                <div key={l.id}>
-                  <ListItem>
-                    <ListItemText
-                      primary={l.school_subject.name}
-                      secondary={l.day}
-                    />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        edge='end'
-                        aria-label='edit'
-                        onClick={() => updateLessonHandler(l.id, l)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton edge='end' aria-label='delete'>
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                  {ind !== arr.length - 1 && <Divider />}
-                </div>
-              )
-            })}
+            {data.lessons.map((l, i, arr) => (
+              <div key={l.id}>
+                <ListItem>
+                  <ListItemText
+                    primary={l.school_subject.name}
+                    secondary={l.day}
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge='end'
+                      aria-label='edit'
+                      onClick={() =>
+                        handlers.editLessonHandler(
+                          l.id,
+                          l,
+                          (data.isEditForm = true)
+                        )
+                      }
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton edge='end' aria-label='delete'>
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+                {i !== arr.length - 1 && <Divider />}
+              </div>
+            ))}
           </List>
         </CardContent>
       </Card>
       <Fab
         color='primary'
         aria-label='add'
-        className={`${classes.addNewLesson} ${
-          data.isLessonForm && classes.isRotate
-        }`}
-        onClick={handlers.toggleLessonFormHandler}
+        className={`${classes.addNewLesson} ${'' && classes.isRotate}`}
+        onClick={handlers.createLessonFormHandler}
       >
         <AddIcon />
       </Fab>

@@ -3,6 +3,14 @@ import { SELECT_DAYS } from 'shared/const'
 
 export type LessonsState = {
   lessons: Lesson[]
-  isLessonForm: boolean
   filterDay: typeof SELECT_DAYS[number] | null
+  lessonForm: LessonFormType
+  isCreateForm: boolean
+  isEditForm: boolean
+}
+
+export type LessonFormType = {
+  day: typeof SELECT_DAYS[number] | null
+  schoolSubject: string | null
+  numberOfLesson: number | null
 }
