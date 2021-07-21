@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -44,6 +44,10 @@ const LessonForm: React.FC = () => {
   const getSchoolSubjectsHandler = useCallback(() => {
     dispatch(fetchSchoolSubjects())
   }, [dispatch])
+
+  useEffect(() => {
+    getSchoolSubjectsHandler()
+  }, [getSchoolSubjectsHandler])
 
   //==== Get from global state ====
   const schoolSubjectsData = useSelector(
@@ -140,7 +144,6 @@ const LessonForm: React.FC = () => {
                 labelId='choose-school-subject'
                 value={lessonFormData.schoolSubject ?? ''}
                 onChange={handleChangeSubject}
-                onOpen={getSchoolSubjectsHandler}
                 label='Choose school subject'
               >
                 {schoolSubjectsData.map(s => (
