@@ -34,6 +34,9 @@ const LessonForm: React.FC = () => {
   const classes = useStyles()
   const { data, handlers } = useLessonForm()
 
+  let statusTextBtn =
+    typeof data.status === 'number' ? 'Edit lesson' : 'Create lesson'
+
   return (
     <div className={classes.formContainer}>
       <Card>
@@ -107,7 +110,7 @@ const LessonForm: React.FC = () => {
               className={classes.createLesson}
               type='submit'
             >
-              Create lesson
+              {statusTextBtn}
             </Button>
           </form>
         </CardContent>
