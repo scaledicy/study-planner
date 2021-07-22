@@ -4,7 +4,7 @@ import { AppStore } from 'store/store'
 import { LessonFormType } from 'store/lessons/type'
 import React from 'react'
 import { closeLessonsFormData, setFormInputData } from 'store/lessons/action'
-import { LESSON_TIME, SELECT_DAYS } from 'shared/const'
+import { LESSON_TIME, DAYS } from 'shared/const'
 import { LessonRequest } from 'services/lessons/type'
 import { createLessonThunk, updateLessonThunk } from 'store/lessons/thunk'
 
@@ -27,7 +27,7 @@ const useLessonForm = () => {
     dispatch(
       setFormInputData({
         ...lessonFormData,
-        day: event.target.value as typeof SELECT_DAYS[number] | null,
+        day: event.target.value as typeof DAYS[number] | null,
       })
     )
   }

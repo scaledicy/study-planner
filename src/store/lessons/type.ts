@@ -1,9 +1,9 @@
 import { Lesson } from 'services/lessons/type'
-import { SELECT_DAYS } from 'shared/const'
+import { DAYS } from 'shared/const'
 
 export type LessonsState = {
   lessons: Lesson[]
-  filterDay: typeof SELECT_DAYS[number] | null
+  filterDay: typeof DAYS[number] | null
   lessonForm: LessonFormType
   isCreateForm: boolean
   isEditForm: boolean
@@ -11,7 +11,7 @@ export type LessonsState = {
 }
 
 export type LessonFormType = {
-  day: typeof SELECT_DAYS[number] | null
+  day: typeof DAYS[number] | null
   schoolSubject: string | null
   numberOfLesson: number | null
 }

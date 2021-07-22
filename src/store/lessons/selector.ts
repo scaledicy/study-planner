@@ -1,6 +1,6 @@
 import { AppStore } from 'store/store'
 import { Lesson } from 'services/lessons/type'
-import { SELECT_DAYS } from 'shared/const'
+import { DAYS } from 'shared/const'
 import { createSelector } from 'reselect'
 
 export const getAllLessonsSelector = (state: AppStore): Lesson[] =>
@@ -8,7 +8,7 @@ export const getAllLessonsSelector = (state: AppStore): Lesson[] =>
 
 export const getFilterDaySelector = (
   state: AppStore
-): typeof SELECT_DAYS[number] | null => state.lessons.filterDay
+): typeof DAYS[number] | null => state.lessons.filterDay
 
 export const isCreateFormSelector = (state: AppStore): boolean =>
   state.lessons.isCreateForm

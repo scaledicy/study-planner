@@ -1,4 +1,4 @@
-export const SELECT_DAYS = [
+export const DAYS = [
   'Monday',
   'Tuesday',
   'Wednesday',

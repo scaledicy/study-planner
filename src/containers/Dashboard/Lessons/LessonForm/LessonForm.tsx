@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { LESSON_TIME, SELECT_DAYS } from 'shared/const'
+import { LESSON_TIME, DAYS } from 'shared/const'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Fab from '@material-ui/core/Fab'
@@ -55,7 +55,7 @@ const LessonForm: React.FC = () => {
                 onChange={handlers.handleChangeDay}
                 label='Choose day'
               >
-                {SELECT_DAYS.map(d => (
+                {DAYS.map(d => (
                   <MenuItem key={d} value={d}>
                     {d}
                   </MenuItem>

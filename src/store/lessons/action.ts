@@ -7,7 +7,7 @@ import {
   SET_LESSONS,
 } from './reducer'
 import { Lesson } from 'services/lessons/type'
-import { SELECT_DAYS } from 'shared/const'
+import { DAYS } from 'shared/const'
 import { LessonFormType } from './type'
 
 type SetLessonsActionType = {
@@ -31,7 +31,7 @@ type CloseLessonFormActionType = {
 
 type SetFilterDayActionType = {
   type: typeof SET_FILTER_DAY
-  filterDay: typeof SELECT_DAYS[number] | null
+  filterDay: typeof DAYS[number] | null
 }
 
 type SetFormInputDataActionType = {
@@ -58,7 +58,7 @@ export const editLessonForm = (
 })
 
 export const setFilterDay = (
-  filterDay: typeof SELECT_DAYS[number] | null
+  filterDay: typeof DAYS[number] | null
 ): SetFilterDayActionType => ({
   type: SET_FILTER_DAY,
   filterDay,
