@@ -55,13 +55,7 @@ const LessonsList: React.FC = () => {
                     <IconButton
                       edge='end'
                       aria-label='edit'
-                      onClick={() =>
-                        handlers.editLessonHandler(
-                          l.id,
-                          l,
-                          (data.isEditForm = true)
-                        )
-                      }
+                      onClick={() => handlers.editLessonHandler(l.id, l)}
                     >
                       <EditIcon />
                     </IconButton>

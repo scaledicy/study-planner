@@ -5,6 +5,7 @@ export const initialState: LessonsState = {
   filterDay: null,
   isCreateForm: false,
   isEditForm: false,
+  isFormStatus: false,
   lessonForm: {
     day: null,
     schoolSubject: null,

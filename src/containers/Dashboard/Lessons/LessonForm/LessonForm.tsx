@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from 'store/store'
 import { LessonRequest } from 'services/lessons/type'
 import { LESSON_TIME, SELECT_DAYS } from 'shared/const'
-import { createLessonThunk } from 'store/lessons/thunk'
+import { createLessonThunk, updateLessonThunk } from 'store/lessons/thunk'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import { LessonFormType } from 'store/lessons/type'
-import { setFormInputData } from 'store/lessons/action'
+import { closeLessonsFormData, setFormInputData } from 'store/lessons/action'
 import Fab from '@material-ui/core/Fab'
 import CloseIcon from '@material-ui/icons/Close'
+import { isLessonFormStatusSelector } from '../../../../store/lessons/selector'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const LessonForm: React.FC = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const status = useSelector(isLessonFormStatusSelector)
 
   //==== Get from global state ====
   const schoolSubjectsData = useSelector(
@@ -83,6 +85,7 @@ const LessonForm: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (
+      //==== Form validation ====
       lessonFormData.day !== null &&
       lessonFormData.numberOfLesson !== null &&
       lessonFormData.schoolSubject !== null
@@ -92,8 +95,17 @@ const LessonForm: React.FC = () => {
         school_subject: lessonFormData.schoolSubject,
         ...LESSON_TIME[lessonFormData.numberOfLesson],
       }
-      dispatch(createLessonThunk(objSubmit))
+      if (status && typeof status === 'boolean') {
+        dispatch(createLessonThunk(objSubmit))
+      }
+      if (typeof status === 'number') {
+        dispatch(updateLessonThunk(status, objSubmit))
+      }
     }
+  }
+
+  const handleClose = () => {
+    dispatch(closeLessonsFormData())
   }
 
   return (
@@ -175,6 +187,7 @@ const LessonForm: React.FC = () => {
         </CardContent>
       </Card>
       <Fab
+        onClick={handleClose}
         size='small'
         color='primary'
         aria-label='add'

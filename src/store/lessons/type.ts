@@ -7,6 +7,7 @@ export type LessonsState = {
   lessonForm: LessonFormType
   isCreateForm: boolean
   isEditForm: boolean
+  isFormStatus: boolean | number
 }
 
 export type LessonFormType = {

@@ -6,6 +6,7 @@ export const SET_FILTER_DAY = 'SET_FILTER_DAY'
 export const SET_FORM_INPUT_DATA = 'SET_FORM_INPUT_DATA'
 export const CREATE_LESSON_FORM = 'ADD_LESSON_FORM'
 export const EDIT_LESSON_FORM = 'EDIT_LESSON_FORM'
+export const CLOSE_LESSON_FORM = 'CLOSE_LESSON_FORM'
 
 export const lessonsReducer = (
   state = initialState,
@@ -33,15 +34,32 @@ export const lessonsReducer = (
     case CREATE_LESSON_FORM: {
       return {
         ...state,
-        isCreateForm: action.isCreateForm,
+        isFormStatus: true,
+        lessonForm: {
+          day: null,
+          schoolSubject: null,
+          numberOfLesson: null,
+        },
       }
     }
+
     case EDIT_LESSON_FORM: {
       return {
         ...state,
-        isEditForm: action.isEditForm,
+        isFormStatus: action.id,
+        lessonForm: action.lessonForm,
       }
     }
+    case CLOSE_LESSON_FORM:
+      return {
+        ...state,
+        isFormStatus: false,
+        lessonForm: {
+          day: null,
+          schoolSubject: null,
+          numberOfLesson: null,
+        },
+      }
     default:
       return state
   }

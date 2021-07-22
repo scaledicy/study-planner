@@ -22,3 +22,6 @@ export const getLessonsByDayFilterSelector = createSelector(
   (allLessons, dayFilter): Lesson[] =>
     dayFilter ? allLessons.filter(i => i.day === dayFilter) : allLessons
 )
+
+export const isLessonFormStatusSelector = (state: AppStore): boolean | number =>
+  state.lessons.isFormStatus

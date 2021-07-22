@@ -1,4 +1,5 @@
 import {
+  CLOSE_LESSON_FORM,
   CREATE_LESSON_FORM,
   EDIT_LESSON_FORM,
   SET_FILTER_DAY,
@@ -16,12 +17,16 @@ type SetLessonsActionType = {
 
 type AddLessonActionType = {
   type: typeof CREATE_LESSON_FORM
-  isCreateForm: boolean
 }
 
 type EditLessonActionType = {
   type: typeof EDIT_LESSON_FORM
-  isEditForm: boolean
+  id: number
+  lessonForm: LessonFormType
+}
+
+type CloseLessonFormActionType = {
+  type: typeof CLOSE_LESSON_FORM
 }
 
 type SetFilterDayActionType = {
@@ -39,16 +44,17 @@ export const setLessons = (lessons: Array<Lesson>): SetLessonsActionType => ({
   lessons,
 })
 
-export const createLessonForm = (
-  isCreateForm: boolean
-): AddLessonActionType => ({
+export const createLessonForm = (): AddLessonActionType => ({
   type: CREATE_LESSON_FORM,
-  isCreateForm,
 })
 
-export const editLessonForm = (isEditForm: boolean): EditLessonActionType => ({
+export const editLessonForm = (
+  id: number,
+  lessonForm: LessonFormType
+): EditLessonActionType => ({
   type: EDIT_LESSON_FORM,
-  isEditForm,
+  id,
+  lessonForm,
 })
 
 export const setFilterDay = (
@@ -63,4 +69,8 @@ export const setFormInputData = (
 ): SetFormInputDataActionType => ({
   type: SET_FORM_INPUT_DATA,
   lessonForm,
+})
+
+export const closeLessonsFormData = (): CloseLessonFormActionType => ({
+  type: CLOSE_LESSON_FORM,
 })

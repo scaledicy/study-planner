@@ -1,26 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect } from 'react'
 import { deleteLessonThunk, fetchLessons } from 'store/lessons/thunk'
-import {
-  getLessonsByDayFilterSelector,
-  isCreateFormSelector,
-  isEditFormSelector,
-} from 'store/lessons/selector'
+import { getLessonsByDayFilterSelector } from 'store/lessons/selector'
 import { Lesson } from 'services/lessons/type'
 import { lessonToForm } from 'helpers/lessonHelpers'
-import {
-  createLessonForm,
-  editLessonForm,
-  setFormInputData,
-} from 'store/lessons/action'
+import { createLessonForm, editLessonForm } from 'store/lessons/action'
 
 const useLessonsList = () => {
   const dispatch = useDispatch()
 
   //==== Selectors ====
   const lessons = useSelector(getLessonsByDayFilterSelector)
-  let isCreateForm = useSelector(isCreateFormSelector)
-  let isEditForm = useSelector(isEditFormSelector)
 
   //==== Dispatch handlers ====
   const getLessonsHandler = useCallback(
@@ -28,8 +18,8 @@ const useLessonsList = () => {
     [dispatch]
   )
   const createLessonFormHandler = useCallback(
-    () => dispatch(createLessonForm(!isCreateForm)),
-    [dispatch, isCreateForm]
+    () => dispatch(createLessonForm()),
+    [dispatch]
   )
   const deleteLessonFormHandler = useCallback(
     lessonId => dispatch(deleteLessonThunk(lessonId)),
@@ -37,11 +27,8 @@ const useLessonsList = () => {
   )
 
   const editLessonHandler = useCallback(
-    (id: number, lesson: Lesson, isEdit: boolean) => {
-      // dispatch(updateLessonThunk(id, lessonToRequest(lesson)))
-
-      dispatch(setFormInputData(lessonToForm(lesson)))
-      dispatch(editLessonForm(isEdit))
+    (id: number, lesson: Lesson) => {
+      dispatch(editLessonForm(id, lessonToForm(lesson)))
     },
     [dispatch]
   )
@@ -54,8 +41,6 @@ const useLessonsList = () => {
   return {
     data: {
       lessons,
-      isCreateForm,
-      isEditForm,
     },
     handlers: {
       createLessonFormHandler,
