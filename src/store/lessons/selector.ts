@@ -13,14 +13,20 @@ export const getFilterDaySelector = (
 export const isCreateFormSelector = (state: AppStore): boolean =>
   state.lessons.isCreateForm
 
-export const isEditFormSelector = (state: AppStore): boolean =>
-  state.lessons.isEditForm
-
 export const getLessonsByDayFilterSelector = createSelector(
   getAllLessonsSelector,
   getFilterDaySelector,
   (allLessons, dayFilter): Lesson[] =>
     dayFilter ? allLessons.filter(i => i.day === dayFilter) : allLessons
+)
+
+export const getLessonsByTimetableSelector = createSelector(
+  getAllLessonsSelector,
+  (allLessons): Record<typeof DAYS[number], Lesson[]> =>
+    DAYS.reduce((res, day) => {
+      res[day] = allLessons.filter(lesson => lesson.day === day)
+      return res
+    }, {} as Record<typeof DAYS[number], Lesson[]>)
 )
 
 export const isLessonFormStatusSelector = (state: AppStore): boolean | number =>

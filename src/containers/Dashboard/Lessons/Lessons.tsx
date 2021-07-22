@@ -1,6 +1,6 @@
 import React from 'react'
 import LessonsList from './LessonsList/LessonsList'
-import Grid from '@material-ui/core/Grid/Grid'
+import Grid from '@material-ui/core/Grid'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
@@ -8,10 +8,22 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { DAYS } from 'shared/const'
 import LessonForm from './LessonForm/LessonForm'
 import useLessons from './useLessons'
-import TimeTable from './TimeTable/TimeTable'
+import Timetable from './TimeTable/Timetable'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    timetableContainer: {
+      marginTop: theme.spacing(4),
+      maxWidth: '1400px',
+      marginInline: 'auto',
+    },
+  })
+)
 
 const Lessons: React.FC = () => {
   const { data, handlers } = useLessons()
+  const classes = useStyles()
 
   return (
     <>
@@ -43,8 +55,8 @@ const Lessons: React.FC = () => {
         </Grid>
       </Grid>
 
-      <Grid container>
-        <TimeTable />
+      <Grid container spacing={5} className={classes.timetableContainer}>
+        <Timetable />
       </Grid>
     </>
   )
