@@ -1,40 +1,16 @@
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import LessonsList from './LessonsList/LessonsList'
-import LessonCreate from './LessonCreate/LessonCreate'
 import Grid from '@material-ui/core/Grid/Grid'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { SELECT_DAYS } from 'shared/const'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppStore } from 'store/store'
-import { setFilterDay } from 'store/lessons/action'
-import { fetchSchoolSubjects } from 'store/schoolSubjects/thunk'
+import LessonForm from './LessonForm/LessonForm'
+import useLessons from './useLessons'
 
 const Lessons: React.FC = () => {
-  const dispatch = useDispatch()
-  const filterDay = useSelector((state: AppStore) => state.lessons.filterDay)
-
-  const getLessonsHandler = useCallback(
-    (day: typeof SELECT_DAYS[number] | null) => dispatch(setFilterDay(day)),
-    [dispatch]
-  )
-  const getSchoolSubjectsHandler = useCallback(() => {
-    dispatch(fetchSchoolSubjects())
-  }, [dispatch])
-
-  const handleFilterDay = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const value: typeof SELECT_DAYS[number] | null =
-      event.target.value === ''
-        ? null
-        : (event.target.value as typeof SELECT_DAYS[number])
-    getLessonsHandler(value)
-  }
-
-  useEffect(() => {
-    getSchoolSubjectsHandler()
-  }, [getSchoolSubjectsHandler])
+  const { data, handlers } = useLessons()
 
   return (
     <Grid container justifyContent='space-between'>
@@ -46,8 +22,8 @@ const Lessons: React.FC = () => {
           <InputLabel id='filter-by-day'>Filtering by day</InputLabel>
           <Select
             labelId='filter-by-day'
-            value={filterDay ?? ''}
-            onChange={handleFilterDay}
+            value={data.filterDay ?? ''}
+            onChange={handlers.handleFilterDay}
             label='Filtering by day'
           >
             {SELECT_DAYS.map(d => (
@@ -59,7 +35,7 @@ const Lessons: React.FC = () => {
         </FormControl>
       </Grid>
       <Grid item xs={6}>
-        <LessonCreate />
+        {data.status || typeof data.status === 'number' ? <LessonForm /> : null}
       </Grid>
     </Grid>
   )

@@ -9,10 +9,10 @@ import { createLessonForm, editLessonForm } from 'store/lessons/action'
 const useLessonsList = () => {
   const dispatch = useDispatch()
 
-  //==== Selectors ====
+  //==== Global state ====
   const lessons = useSelector(getLessonsByDayFilterSelector)
 
-  //==== Dispatch handlers ====
+  //==== Handlers ====
   const getLessonsHandler = useCallback(
     () => dispatch(fetchLessons()),
     [dispatch]
@@ -25,7 +25,6 @@ const useLessonsList = () => {
     lessonId => dispatch(deleteLessonThunk(lessonId)),
     [dispatch]
   )
-
   const editLessonHandler = useCallback(
     (id: number, lesson: Lesson) => {
       dispatch(editLessonForm(id, lessonToForm(lesson)))
