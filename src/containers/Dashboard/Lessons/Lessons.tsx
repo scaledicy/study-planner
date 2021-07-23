@@ -10,6 +10,7 @@ import LessonForm from './LessonForm/LessonForm'
 import useLessons from './useLessons'
 import Timetable from './TimeTable/Timetable'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,6 +57,11 @@ const Lessons: React.FC = () => {
       </Grid>
 
       <Grid container spacing={5} className={classes.timetableContainer}>
+        <Grid item xs={12}>
+          <Typography variant='h4' align='center'>
+            Schedule
+          </Typography>
+        </Grid>
         <Timetable />
       </Grid>
     </>

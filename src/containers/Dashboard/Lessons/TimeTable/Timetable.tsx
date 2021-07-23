@@ -5,14 +5,13 @@ import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import CardContent from '@material-ui/core/CardContent'
 import Card from '@material-ui/core/Card'
-import { useSelector } from 'react-redux'
-import { getLessonsByTimetableSelector } from 'store/lessons/selector'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
+import useTimetable from './useTimetable'
 
 const Timetable: React.FC = () => {
-  const timetableLessons = useSelector(getLessonsByTimetableSelector)
+  const { data, handlers } = useTimetable()
 
   return (
     <>
@@ -26,12 +25,20 @@ const Timetable: React.FC = () => {
               <List>
                 {LESSON_TIME.map((el, i, arr) => (
                   <div key={el.start}>
-                    <ListItem button>
+                    <ListItem
+                      button
+                      onClick={() => {
+                        if (data.timetableLessons[day][el.start])
+                          handlers.editLessonHandler(
+                            data.timetableLessons[day][el.start]
+                          )
+                      }}
+                    >
                       <ListItemText
                         primary={`${++i}. ${
-                          timetableLessons[day][el.start]
-                            ? timetableLessons[day][el.start].school_subject
-                                .name
+                          data.timetableLessons[day][el.start]
+                            ? data.timetableLessons[day][el.start]
+                                .school_subject.name
                             : 'Empty subject'
                         }`}
                       />
