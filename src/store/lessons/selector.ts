@@ -2,7 +2,8 @@ import { AppStore } from 'store/store'
 import { Lesson } from 'services/lessons/type'
 import { DAYS } from 'shared/const'
 import { createSelector } from 'reselect'
-import { compareByStartTime } from 'helpers/lessonHelpers'
+import { LessonTimeRecord } from './type'
+import { lessonsToTimeRecord } from 'helpers/lessonHelpers'
 
 export const getAllLessonsSelector = (state: AppStore): Lesson[] =>
   state.lessons.lessons
@@ -21,19 +22,22 @@ export const getLessonsByDayFilterSelector = createSelector(
     dayFilter ? allLessons.filter(i => i.day === dayFilter) : allLessons
 )
 
+type DayIndex = typeof DAYS[number]
+type TimetableType = Record<DayIndex, LessonTimeRecord>
+
 export const getLessonsByTimetableSelector = createSelector(
   getAllLessonsSelector,
-  (allLessons): Record<typeof DAYS[number], Lesson[]> => {
+  (allLessons): TimetableType => {
     const daysReduce = (
-      res: Record<typeof DAYS[number], Lesson[]>,
+      res: TimetableType,
       day: typeof DAYS[number]
-    ): Record<typeof DAYS[number], Lesson[]> => {
-      res[day] = allLessons
-        .filter(lesson => lesson.day === day)
-        .sort(compareByStartTime)
+    ): TimetableType => {
+      res[day] = lessonsToTimeRecord(
+        allLessons.filter(lesson => lesson.day === day)
+      )
       return res
     }
-    return DAYS.reduce(daysReduce, {} as Record<typeof DAYS[number], Lesson[]>)
+    return DAYS.reduce(daysReduce, {} as TimetableType)
   }
 )
 

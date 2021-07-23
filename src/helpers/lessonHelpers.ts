@@ -1,5 +1,5 @@
 import { Lesson, LessonRequest } from 'services/lessons/type'
-import { LessonFormType } from 'store/lessons/type'
+import { LessonFormType, LessonTimeRecord } from 'store/lessons/type'
 import { LESSON_TIME } from 'shared/const'
 
 export function lessonToRequest(lesson: Lesson): LessonRequest {
@@ -38,3 +38,17 @@ export const compareByStartTime = (lesson1: Lesson, lesson2: Lesson) => {
     return 1
   } else return 0
 }
+
+export const lessonsToTimeRecord = (lessons: Lesson[]): LessonTimeRecord =>
+  lessons.reduce((res, lesson) => {
+    res[lesson.start] = lesson
+    return res
+  }, {} as LessonTimeRecord)
+
+// export const lessonsToTimeRecord = (lessons: Lesson[]): LessonTimeRecord => {
+//   let obj:LessonTimeRecord = {}
+//   lessons.forEach(i => {
+//     obj[i.start] = i
+//   })
+//   return obj
+// }

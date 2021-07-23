@@ -15,3 +15,5 @@ export type LessonFormType = {
   schoolSubject: string | null
   numberOfLesson: number | null
 }
+
+export type LessonTimeRecord = Record<string, Lesson>

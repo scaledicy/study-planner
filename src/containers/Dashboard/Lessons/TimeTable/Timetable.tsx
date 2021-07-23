@@ -1,5 +1,5 @@
 import React from 'react'
-import { DAYS } from 'shared/const'
+import { DAYS, LESSON_TIME } from 'shared/const'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -24,15 +24,19 @@ const Timetable: React.FC = () => {
                 {day}
               </Typography>
               <List>
-                {timetableLessons[day].map((lesson, i, arr) => (
-                  <div key={lesson.id}>
-                    <ListItem>
+                {LESSON_TIME.map((el, i, arr) => (
+                  <div key={el.start}>
+                    <ListItem button>
                       <ListItemText
-                        primary={`${i + 1}. ${lesson.school_subject.name}`}
-                        secondary={lesson.start}
+                        primary={`${++i}. ${
+                          timetableLessons[day][el.start]
+                            ? timetableLessons[day][el.start].school_subject
+                                .name
+                            : 'Empty subject'
+                        }`}
                       />
                     </ListItem>
-                    {i !== arr.length - 1 && <Divider />}
+                    {i !== arr.length && <Divider />}
                   </div>
                 ))}
               </List>
