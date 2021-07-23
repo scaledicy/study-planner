@@ -29,6 +29,7 @@ const Timetable: React.FC = () => {
                     <ListItem>
                       <ListItemText
                         primary={`${i + 1}. ${lesson.school_subject.name}`}
+                        secondary={lesson.start}
                       />
                     </ListItem>
                     {i !== arr.length - 1 && <Divider />}

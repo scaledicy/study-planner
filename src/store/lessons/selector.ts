@@ -2,6 +2,7 @@ import { AppStore } from 'store/store'
 import { Lesson } from 'services/lessons/type'
 import { DAYS } from 'shared/const'
 import { createSelector } from 'reselect'
+import { compareByStartTime } from 'helpers/lessonHelpers'
 
 export const getAllLessonsSelector = (state: AppStore): Lesson[] =>
   state.lessons.lessons
@@ -22,11 +23,18 @@ export const getLessonsByDayFilterSelector = createSelector(
 
 export const getLessonsByTimetableSelector = createSelector(
   getAllLessonsSelector,
-  (allLessons): Record<typeof DAYS[number], Lesson[]> =>
-    DAYS.reduce((res, day) => {
-      res[day] = allLessons.filter(lesson => lesson.day === day)
+  (allLessons): Record<typeof DAYS[number], Lesson[]> => {
+    const daysReduce = (
+      res: Record<typeof DAYS[number], Lesson[]>,
+      day: typeof DAYS[number]
+    ): Record<typeof DAYS[number], Lesson[]> => {
+      res[day] = allLessons
+        .filter(lesson => lesson.day === day)
+        .sort(compareByStartTime)
       return res
-    }, {} as Record<typeof DAYS[number], Lesson[]>)
+    }
+    return DAYS.reduce(daysReduce, {} as Record<typeof DAYS[number], Lesson[]>)
+  }
 )
 
 export const isLessonFormStatusSelector = (state: AppStore): boolean | number =>
