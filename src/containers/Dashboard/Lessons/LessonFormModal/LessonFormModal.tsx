@@ -4,13 +4,19 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import {
+  createStyles,
+  makeStyles,
+  useTheme,
+  Theme,
+} from '@material-ui/core/styles'
 import { DAYS, LESSON_TIME } from 'shared/const'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import useLessonFormModal from './useLessonFormModal'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,12 +29,16 @@ const useStyles = makeStyles((theme: Theme) =>
 const LessonFormModal: React.FC = () => {
   const { data, handlers } = useLessonFormModal()
   const classes = useStyles()
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Dialog
       aria-labelledby='dialog-title'
       open={!!data.status || typeof data.status === 'number'}
       onClose={handlers.handleClose}
+      fullScreen={fullScreen}
+      fullWidth
     >
       <DialogTitle id='dialog-title'>Set backup account</DialogTitle>
       <Card>

@@ -54,6 +54,10 @@ const useLessonFormModal = () => {
     )
   }
 
+  const handleClose = () => {
+    dispatch(closeLessonsFormData())
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     //todo To thunk action
@@ -70,15 +74,13 @@ const useLessonFormModal = () => {
       }
       if (status && typeof status === 'boolean') {
         dispatch(createLessonThunk(objSubmit))
+        handleClose()
       }
       if (typeof status === 'number') {
         dispatch(updateLessonThunk(status, objSubmit))
+        handleClose()
       }
     }
-  }
-
-  const handleClose = () => {
-    dispatch(closeLessonsFormData())
   }
 
   return {
