@@ -3,7 +3,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import React from 'react'
 import useLessonsList from './useLessonsList'
-import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
@@ -40,9 +39,6 @@ const LessonsList: React.FC = () => {
     <div className={classes.cardContainer}>
       <Card>
         <CardContent>
-          <Typography variant='h5' gutterBottom align='center'>
-            Lessons list
-          </Typography>
           <List>
             {data.lessons.map((l, i, arr) => (
               <div key={l.id}>

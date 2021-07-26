@@ -6,7 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { DAYS } from 'shared/const'
-import LessonForm from './LessonForm/LessonForm'
+import LessonFormModal from './LessonForm/LessonFormModal'
 import useLessons from './useLessons'
 import Timetable from './TimeTable/Timetable'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -14,10 +14,8 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    timetableContainer: {
-      marginTop: theme.spacing(4),
-      maxWidth: '1400px',
-      marginInline: 'auto',
+    filterGridContainer: {
+      marginBottom: theme.spacing(4),
     },
   })
 )
@@ -28,10 +26,7 @@ const Lessons: React.FC = () => {
 
   return (
     <>
-      <Grid container justifyContent='space-between'>
-        <Grid item xs={3}>
-          <LessonsList />
-        </Grid>
+      <Grid container className={classes.filterGridContainer}>
         <Grid item xs={2}>
           <FormControl variant='outlined' size='small' fullWidth margin='dense'>
             <InputLabel id='filter-by-day'>Filtering by day</InputLabel>
@@ -49,21 +44,34 @@ const Lessons: React.FC = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
-          {data.status || typeof data.status === 'number' ? (
-            <LessonForm />
-          ) : null}
+      </Grid>
+
+      <Grid container spacing={10}>
+        <Grid item xs={3}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant='h4' align='center'>
+                Lessons list
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <LessonsList />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={9}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant='h4' align='center'>
+                Schedule
+              </Typography>
+            </Grid>
+            <Timetable />
+          </Grid>
         </Grid>
       </Grid>
 
-      <Grid container spacing={5} className={classes.timetableContainer}>
-        <Grid item xs={12}>
-          <Typography variant='h4' align='center'>
-            Schedule
-          </Typography>
-        </Grid>
-        <Timetable />
-      </Grid>
+      <LessonFormModal />
     </>
   )
 }

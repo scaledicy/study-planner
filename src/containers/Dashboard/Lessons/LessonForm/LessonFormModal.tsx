@@ -5,35 +5,32 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { LESSON_TIME, DAYS } from 'shared/const'
+import { DAYS, LESSON_TIME } from 'shared/const'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import Fab from '@material-ui/core/Fab'
-import CloseIcon from '@material-ui/icons/Close'
-import useLessonForm from './useLessonForm'
+import useLessonFormModal from './useLessonFormModal'
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     createLesson: {
       marginTop: theme.spacing(2),
     },
-    formContainer: {
-      position: 'relative',
-    },
-    closeForm: {
-      position: 'absolute',
-      top: '-20px',
-      right: '-20px',
-    },
   })
 )
 
-const LessonForm: React.FC = () => {
-  const { data, handlers } = useLessonForm()
+const LessonFormModal: React.FC = () => {
+  const { data, handlers } = useLessonFormModal()
   const classes = useStyles()
 
   return (
-    <div className={classes.formContainer}>
+    <Dialog
+      aria-labelledby='dialog-title'
+      open={!!data.status || typeof data.status === 'number'}
+      onClose={handlers.handleClose}
+    >
+      <DialogTitle id='dialog-title'>Set backup account</DialogTitle>
       <Card>
         <CardContent>
           <form noValidate autoComplete='off' onSubmit={handlers.handleSubmit}>
@@ -110,17 +107,8 @@ const LessonForm: React.FC = () => {
           </form>
         </CardContent>
       </Card>
-      <Fab
-        onClick={handlers.handleClose}
-        size='small'
-        color='primary'
-        aria-label='add'
-        className={classes.closeForm}
-      >
-        <CloseIcon />
-      </Fab>
-    </div>
+    </Dialog>
   )
 }
 
-export default LessonForm
+export default LessonFormModal

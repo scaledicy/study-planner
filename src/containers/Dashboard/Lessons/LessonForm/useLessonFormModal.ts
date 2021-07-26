@@ -8,7 +8,7 @@ import { LESSON_TIME, DAYS } from 'shared/const'
 import { LessonRequest } from 'services/lessons/type'
 import { createLessonThunk, updateLessonThunk } from 'store/lessons/thunk'
 
-const useLessonForm = () => {
+const useLessonFormModal = () => {
   const dispatch = useDispatch()
   const status = useSelector(isLessonFormStatusSelector)
   let statusTextBtn =
@@ -98,4 +98,4 @@ const useLessonForm = () => {
   }
 }
 
-export default useLessonForm
+export default useLessonFormModal
