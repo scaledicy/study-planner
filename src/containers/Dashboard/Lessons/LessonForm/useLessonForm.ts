@@ -11,6 +11,8 @@ import { createLessonThunk, updateLessonThunk } from 'store/lessons/thunk'
 const useLessonForm = () => {
   const dispatch = useDispatch()
   const status = useSelector(isLessonFormStatusSelector)
+  let statusTextBtn =
+    typeof status === 'number' ? 'Edit lesson' : 'Create lesson'
 
   //==== Global state ====
   const schoolSubjectsData = useSelector(
@@ -84,6 +86,7 @@ const useLessonForm = () => {
       schoolSubjectsData,
       lessonFormData,
       status,
+      statusTextBtn,
     },
     handlers: {
       handleChangeDay,

@@ -28,14 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-//todo move logic out of a component
-
 const LessonForm: React.FC = () => {
-  const classes = useStyles()
   const { data, handlers } = useLessonForm()
-
-  let statusTextBtn =
-    typeof data.status === 'number' ? 'Edit lesson' : 'Create lesson'
+  const classes = useStyles()
 
   return (
     <div className={classes.formContainer}>
@@ -110,7 +105,7 @@ const LessonForm: React.FC = () => {
               className={classes.createLesson}
               type='submit'
             >
-              {statusTextBtn}
+              {data.statusTextBtn}
             </Button>
           </form>
         </CardContent>

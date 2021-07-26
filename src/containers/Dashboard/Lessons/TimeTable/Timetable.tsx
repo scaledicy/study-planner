@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import useTimetable from './useTimetable'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const Timetable: React.FC = () => {
   const { data, handlers } = useTimetable()
@@ -25,24 +26,26 @@ const Timetable: React.FC = () => {
               <List>
                 {LESSON_TIME.map((el, i, arr) => (
                   <div key={el.start}>
-                    <ListItem
-                      button
-                      onClick={() => {
-                        if (data.timetableLessons[day][el.start])
-                          handlers.editLessonHandler(
+                    <Tooltip title='Edit'>
+                      <ListItem
+                        button
+                        onClick={() => {
+                          if (data.timetableLessons[day][el.start])
+                            handlers.editLessonHandler(
+                              data.timetableLessons[day][el.start]
+                            )
+                        }}
+                      >
+                        <ListItemText
+                          primary={`${++i}. ${
                             data.timetableLessons[day][el.start]
-                          )
-                      }}
-                    >
-                      <ListItemText
-                        primary={`${++i}. ${
-                          data.timetableLessons[day][el.start]
-                            ? data.timetableLessons[day][el.start]
-                                .school_subject.name
-                            : 'Empty subject'
-                        }`}
-                      />
-                    </ListItem>
+                              ? data.timetableLessons[day][el.start]
+                                  .school_subject.name
+                              : 'Empty subject'
+                          }`}
+                        />
+                      </ListItem>
+                    </Tooltip>
                     {i !== arr.length && <Divider />}
                   </div>
                 ))}
