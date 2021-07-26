@@ -1,10 +1,8 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
-import createStyles from '@material-ui/core/styles/createStyles'
-import makeStyles from '@material-ui/core/styles/makeStyles'
 import Toolbar from '@material-ui/core/Toolbar/Toolbar'
-import Typography from '@material-ui/core/Typography/Typography'
 import React from 'react'
-import { Theme } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import headerLogo from 'assets/images/header-logo.svg'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,6 +20,15 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(5),
       backgroundColor: '#FEF5E7',
     },
+    headerToolbar: {
+      width: '100%',
+      justifyContent: 'center',
+    },
+    headerLogo: {
+      display: 'block',
+      objectFit: 'contain',
+      height: '48px',
+    },
   })
 )
 
@@ -31,10 +38,12 @@ const BaseLayout: React.FC = ({ children }) => {
   return (
     <div className={classes.root}>
       <AppBar position='sticky' className={classes.appBar}>
-        <Toolbar>
-          <Typography variant='h4' noWrap>
-            Study planner
-          </Typography>
+        <Toolbar className={classes.headerToolbar}>
+          <img
+            className={classes.headerLogo}
+            src={headerLogo}
+            alt='headerLogo'
+          />
         </Toolbar>
       </AppBar>
       <div className={classes.content}>{children}</div>
