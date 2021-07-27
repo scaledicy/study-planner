@@ -35,11 +35,6 @@ export const lessonsReducer = (
       return {
         ...state,
         isFormStatus: true,
-        lessonForm: {
-          day: null,
-          schoolSubject: null,
-          numberOfLesson: null,
-        },
       }
     }
 

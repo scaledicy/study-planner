@@ -35,12 +35,16 @@ const Timetable: React.FC = () => {
                               data.timetableLessons[day][el.start]
                             )
                           } else {
-                            handlers.createLessonFormHandler()
+                            handlers.createLessonFormHandler({
+                              day,
+                              schoolSubject: null,
+                              numberOfLesson: i,
+                            })
                           }
                         }}
                       >
                         <ListItemText
-                          primary={`${++i}. ${
+                          primary={`${i + 1}. ${
                             data.timetableLessons[day][el.start]
                               ? data.timetableLessons[day][el.start]
                                   .school_subject.name
@@ -49,7 +53,7 @@ const Timetable: React.FC = () => {
                         />
                       </ListItem>
                     </Tooltip>
-                    {i !== arr.length && <Divider />}
+                    {i + 1 !== arr.length && <Divider />}
                   </div>
                 ))}
               </List>
