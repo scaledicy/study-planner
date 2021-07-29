@@ -5,11 +5,8 @@ import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import CardContent from '@material-ui/core/CardContent'
 import Card from '@material-ui/core/Card'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Divider from '@material-ui/core/Divider'
 import useTimetable from './useTimetable'
-import Tooltip from '@material-ui/core/Tooltip'
+import TimetableCell from './TimetableCell/TimetableCell'
 
 const Timetable: React.FC = () => {
   const { data, handlers } = useTimetable()
@@ -25,33 +22,22 @@ const Timetable: React.FC = () => {
               </Typography>
               <List>
                 {LESSON_TIME.map((el, i, arr) => (
-                  <div key={el.start}>
-                    <Tooltip title='Edit'>
-                      <ListItem
-                        button
-                        onClick={() => {
-                          handlers.handleClickCell(
-                            data.timetableLessons[day][el.start],
-                            {
-                              day,
-                              schoolSubject: null,
-                              numberOfLesson: i,
-                            }
-                          )
-                        }}
-                      >
-                        <ListItemText
-                          primary={`${i + 1}. ${
-                            data.timetableLessons[day][el.start]
-                              ? data.timetableLessons[day][el.start]
-                                  .school_subject.name
-                              : 'Empty subject'
-                          }`}
-                        />
-                      </ListItem>
-                    </Tooltip>
-                    {i + 1 !== arr.length && <Divider />}
-                  </div>
+                  <TimetableCell
+                    key={el.start}
+                    number={i + 1}
+                    isNotLast={i + 1 !== arr.length}
+                    lesson={data.timetableLessons[day][el.start]}
+                    onClick={() => {
+                      handlers.handleClickCell(
+                        data.timetableLessons[day][el.start],
+                        {
+                          day,
+                          schoolSubject: null,
+                          numberOfLesson: i,
+                        }
+                      )
+                    }}
+                  />
                 ))}
               </List>
             </CardContent>
