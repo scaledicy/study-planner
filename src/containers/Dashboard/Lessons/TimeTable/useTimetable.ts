@@ -28,14 +28,20 @@ const useTimetable = () => {
     },
     [dispatch]
   )
+  const handleClickCell = (lesson: Lesson, lessonForm: LessonFormType) => {
+    if (lesson) {
+      editLessonHandler(lesson)
+    } else {
+      createLessonFormHandler(lessonForm)
+    }
+  }
 
   return {
     data: {
       timetableLessons,
     },
     handlers: {
-      createLessonFormHandler,
-      editLessonHandler,
+      handleClickCell,
     },
   }
 }

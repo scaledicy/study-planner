@@ -30,17 +30,14 @@ const Timetable: React.FC = () => {
                       <ListItem
                         button
                         onClick={() => {
-                          if (data.timetableLessons[day][el.start]) {
-                            handlers.editLessonHandler(
-                              data.timetableLessons[day][el.start]
-                            )
-                          } else {
-                            handlers.createLessonFormHandler({
+                          handlers.handleClickCell(
+                            data.timetableLessons[day][el.start],
+                            {
                               day,
                               schoolSubject: null,
                               numberOfLesson: i,
-                            })
-                          }
+                            }
+                          )
                         }}
                       >
                         <ListItemText
