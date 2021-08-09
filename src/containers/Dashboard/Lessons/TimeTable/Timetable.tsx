@@ -9,7 +9,7 @@ import useTimetable from './useTimetable'
 import TimetableCell from './TimetableCell/TimetableCell'
 
 const Timetable: React.FC = () => {
-  const { data, handlers } = useTimetable()
+  const { data } = useTimetable()
 
   return (
     <>
@@ -26,17 +26,9 @@ const Timetable: React.FC = () => {
                     key={el.start}
                     number={i + 1}
                     isNotLast={i + 1 !== arr.length}
+                    time={el}
                     lesson={data.timetableLessons[day][el.start]}
-                    onClick={() => {
-                      handlers.handleClickCell(
-                        data.timetableLessons[day][el.start],
-                        {
-                          day,
-                          schoolSubject: null,
-                          numberOfLesson: i,
-                        }
-                      )
-                    }}
+                    day={day}
                   />
                 ))}
               </List>
