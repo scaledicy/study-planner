@@ -8,13 +8,16 @@ import { defaultTheme } from 'themes/default.theme'
 import { CssBaseline } from '@material-ui/core'
 import { Provider } from 'react-redux'
 import appStore from 'store/store'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={appStore}>
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </CssBaseline>
       </ThemeProvider>
     </Provider>

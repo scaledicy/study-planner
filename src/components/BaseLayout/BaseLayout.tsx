@@ -3,6 +3,9 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import headerLogo from 'assets/images/header-logo.svg'
+import Button from '@material-ui/core/Button'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     headerToolbar: {
       width: '100%',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
     },
     headerLogo: {
       display: 'block',
@@ -39,11 +42,17 @@ const BaseLayout: React.FC = ({ children }) => {
     <div className={classes.root}>
       <AppBar position='sticky' className={classes.appBar}>
         <Toolbar className={classes.headerToolbar}>
-          <img
-            className={classes.headerLogo}
-            src={headerLogo}
-            alt='headerLogo'
-          />
+          <Link to='/'>
+            <img
+              className={classes.headerLogo}
+              src={headerLogo}
+              alt='headerLogo'
+            />
+          </Link>
+          <ButtonGroup aria-label='outlined secondary button group'>
+            <Button type='button'>Login</Button>
+            <Button type='button'>Sign up</Button>
+          </ButtonGroup>
         </Toolbar>
       </AppBar>
       <div className={classes.content}>{children}</div>
