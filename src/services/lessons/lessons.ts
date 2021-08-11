@@ -9,11 +9,8 @@ export const createLesson = (lesson: LessonRequest) =>
   instance.post('lessons', lesson)
 
 //==== Put ====
-export const updateLesson = (id: number, lesson: LessonRequest) => {
-  return instance.put(`lessons/${id}`, lesson)
-}
+export const updateLesson = (id: number, lesson: LessonRequest) =>
+  instance.put(`lessons/${id}`, lesson)
 
 //==== Delete ====
-export const deleteLesson = (id: number) => {
-  return instance.delete(`lessons/${id}`)
-}
+export const deleteLesson = (id: number) => instance.delete(`lessons/${id}`)

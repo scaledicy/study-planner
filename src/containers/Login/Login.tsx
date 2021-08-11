@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import AuthLayout from 'components/AuthLayout/AuthLayout'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -26,15 +26,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Login: React.FC = () => {
   const classes = useStyles()
+  const [emailField, setEmailField] = useState('')
+  const [passwordField, setPasswordField] = useState('')
+
+  const emailHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmailField(e.target.value)
+  }
+  const passwordHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPasswordField(e.target.value)
+  }
 
   return (
     <AuthLayout>
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component='h1' variant='h5'>
-        Login
-      </Typography>
+      <Typography variant='h4'>Login</Typography>
       <form className={classes.form} noValidate>
         <TextField
           variant='outlined'
@@ -46,6 +53,8 @@ const Login: React.FC = () => {
           name='email'
           autoComplete='email'
           autoFocus
+          onChange={emailHandleChange}
+          value={emailField}
         />
         <TextField
           variant='outlined'
@@ -57,6 +66,8 @@ const Login: React.FC = () => {
           type='password'
           id='password'
           autoComplete='current-password'
+          onChange={passwordHandleChange}
+          value={passwordField}
         />
         <FormControlLabel
           control={<Checkbox value='remember' color='primary' />}
