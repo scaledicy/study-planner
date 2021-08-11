@@ -6,7 +6,7 @@ import useLessonsList from './useLessonsList'
 import Card from '@material-ui/core/Card'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import CardContent from '@material-ui/core/CardContent'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
@@ -14,22 +14,20 @@ import Divider from '@material-ui/core/Divider'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    cardContainer: {
-      position: 'relative',
-    },
-    addNewLesson: {
-      position: 'absolute',
-      top: '-28px',
-      right: '-28px',
-      transition: 'transform .3s',
-    },
-    isRotate: {
-      transform: 'rotate(45deg)',
-    },
-  })
-)
+const useStyles = makeStyles(() => ({
+  cardContainer: {
+    position: 'relative',
+  },
+  addNewLesson: {
+    position: 'absolute',
+    top: '-28px',
+    right: '-28px',
+    transition: 'transform .3s',
+  },
+  isRotate: {
+    transform: 'rotate(45deg)',
+  },
+}))
 
 const LessonsList: React.FC = () => {
   const { data, handlers } = useLessonsList()

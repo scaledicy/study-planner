@@ -4,12 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-} from '@material-ui/core/styles'
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import { DAYS, LESSON_TIME } from 'shared/const'
 import useLessonFormModal from './useLessonFormModal'
 import Dialog from '@material-ui/core/Dialog'
@@ -18,14 +13,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    lessonFormModalActions: {
-      marginTop: theme.spacing(2),
-      paddingInline: 0,
-    },
-  })
-)
+const useStyles = makeStyles((theme: Theme) => ({
+  lessonFormModalActions: {
+    marginTop: theme.spacing(2),
+    paddingInline: 0,
+  },
+}))
 
 const LessonFormModal: React.FC = () => {
   const { data, handlers } = useLessonFormModal()

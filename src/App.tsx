@@ -3,6 +3,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Lessons from './containers/Lessons/Lessons'
 import BaseLayout from './components/BaseLayout/BaseLayout'
+import NotFound from './containers/NotFound/NotFound'
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
           </Route>
           <Route exact path='/login'>
             <Login />
+          </Route>
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       </BaseLayout>

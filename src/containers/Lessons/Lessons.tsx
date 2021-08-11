@@ -9,16 +9,14 @@ import { DAYS } from 'shared/const'
 import LessonFormModal from './LessonFormModal/LessonFormModal'
 import useLessons from './useLessons'
 import Timetable from './TimeTable/Timetable'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    filterGridContainer: {
-      marginBottom: theme.spacing(4),
-    },
-  })
-)
+const useStyles = makeStyles((theme: Theme) => ({
+  filterGridContainer: {
+    marginBottom: theme.spacing(4),
+  },
+}))
 
 const Lessons: React.FC = () => {
   const { data, handlers } = useLessons()
