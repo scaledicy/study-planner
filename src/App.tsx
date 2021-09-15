@@ -7,21 +7,19 @@ import NotFound from './containers/NotFound/NotFound'
 
 function App() {
   return (
-    <>
-      <BaseLayout>
-        <Switch>
-          <Route exact path='/'>
-            <Lessons />
-          </Route>
-          <Route exact path='/login'>
-            <Login />
-          </Route>
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </BaseLayout>
-    </>
+    <BaseLayout>
+      <Switch>
+        <Route exact path='/'>
+          <Lessons />
+        </Route>
+        <Route exact path='/login'>
+          <Login />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </BaseLayout>
   )
 }
 
